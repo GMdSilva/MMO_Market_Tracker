@@ -6,7 +6,7 @@
 
 This is a simple but powerful tool to track the movement of assets in games featuring a traditional market interface with bid and ask options using Optical Character Recognition (OCR).
 
-While most modern games have API that trivialize tracking this information, programmatic queries are largely missing in older games such as CipSoft's Tibia (which launched in 1997!), requiring less orthodox methods to obtain market information.
+While most modern games have APIs that trivialize tracking this information, programmatic queries are largely missing in older games such as CipSoft's Tibia (which launched in 1997!), requiring less orthodox methods to obtain market information.
 
 Currently, this tool only supports `Windows` platforms.
 
@@ -26,7 +26,7 @@ The ability to take screenshots and input actions without affecting foreground t
 
 ### Result Analysis and Visualization
 
-From the OCR method with the [`main_collect.py`](MarketTracker/core/main_collect.py) method, we collect market data every few seconds, store it to a master `pandas` data frame, and run a variety of analyses through the [`main_analyze.py`](MarketTracker/core/main_analyze.py) method to calculate trade volume, average prices, and more. 
+From the OCR method with the [`main_collect.py`](MarketTracker/main_collect.py) method, we collect market data every few seconds, store it to a master `pandas` data frame, and run a variety of analyses through the [`main_analyze.py`](MarketTracker/main_analyze.py) method to calculate trade volume, average prices, and more. 
 
 The results are plotted with `plotly`, and saved to a `.html` page for ease of visualization:
 
