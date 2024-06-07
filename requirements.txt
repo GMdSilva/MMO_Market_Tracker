@@ -1,0 +1,7 @@
+numpy
+pandas
+Pillow==10.3
+plotly
+pytesseract
+pywin32
+opencv-python
