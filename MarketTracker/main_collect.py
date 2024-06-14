@@ -17,6 +17,8 @@ def process_assets(assets):
             asset_for_game = asset.replace("_", " ")
             game_actions.input_item_name(asset_for_game)
             time.sleep(1)
+            game_actions.click_market_offers()
+            time.sleep(0.25)
             build_dataset(asset, CURRENT_DATE)
             read_and_append_unique(asset, CURRENT_DATE)
 

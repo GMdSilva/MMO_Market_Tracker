@@ -13,12 +13,14 @@ vs = Vision()
 
 def read_offer_data(read_coords):
     img = vs.capture_text(read_coords, update=True)
-    processed_img = process_image(img, rescale_factor=3)
-    return processed_img
+    processed_imgs = process_image(img, rescale_factor=3)
+    return processed_imgs
 
 
-def do_ocr(processed_img):
-    ocr_data = read_image_text(processed_img)
+def do_ocr(processed_imgs):
+    ocr_data = []
+    for img_fragment in processed_imgs:
+        ocr_data.append(read_image_text(img_fragment))
     return ocr_data
 
 
@@ -27,8 +29,18 @@ def extract_offer_data(offer_type):
     for key, coords in MARKET_COORDS[offer_type].items():
         rectangle = read_offer_data(coords)
         text = do_ocr(rectangle)
-        data[key] = [value.strip() for value in text.split('\n') if value.strip()]
+        data[key] = [item.strip() for item in text]
     return data
+
+
+def sanitize_string(input_string):
+    try:
+        sanitized_string = ''.join(char for char in input_string if char.isdigit())
+    except:
+        sanitized_string = input_string
+    if sanitized_string == '':
+        sanitized_string = 100000000
+    return int(sanitized_string)
 
 
 def build_dataset(item_name, folder_name):
@@ -50,8 +62,14 @@ def build_dataset(item_name, folder_name):
             'prices': data['PRICE_COORDS'],
         })
 
-        df['quantity'] = df['quantity'].astype(int)
-        df['prices'] = df['prices'].astype(int)
+        quantities = []
+        prices = []
+        for quantity, price in zip(df['quantity'], df['prices']):
+            quantities.append(sanitize_string(quantity))
+            prices.append(sanitize_string(price))
+
+        df['quantity'] = quantities
+        df['prices'] = (prices)
         df['total'] = df['quantity'] * df['prices']
         df['cur_time'] = datetime.now().strftime('%Y-%m-%d-%H:%M:%S')
         df['offer_id'] = offer_ids

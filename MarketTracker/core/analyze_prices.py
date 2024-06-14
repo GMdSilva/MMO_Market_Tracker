@@ -1,6 +1,5 @@
 import pandas as pd
 
-
 def analyze_price_history(item_name, offer_type, folder_name):
     df = pd.read_csv(f'results/{folder_name}/{item_name}/{offer_type}_base.csv')
 
@@ -27,8 +26,9 @@ def analyze_price_history(item_name, offer_type, folder_name):
             lambda row: any((prev_scan['offer_id'] == row['offer_id']) & (prev_scan['quantity'] != row['quantity'])),
             axis=1)]
         if not quantity_changes.empty:
-            quantity_changes['delta_quantity'] = quantity_changes.apply(
-                lambda row: row['quantity'] - prev_scan[prev_scan['offer_id'] == row['offer_id']]['quantity'].values[0],
+            quantity_changes = quantity_changes.copy()  # Avoid SettingWithCopyWarning
+            quantity_changes.loc[:, 'delta_quantity'] = quantity_changes.apply(
+                lambda row: row['quantity'] - prev_scan.loc[prev_scan['offer_id'] == row['offer_id'], 'quantity'].values[0],
                 axis=1)
         all_quantity_changes.append(quantity_changes)
 

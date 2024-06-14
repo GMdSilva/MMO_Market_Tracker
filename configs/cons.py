@@ -7,27 +7,29 @@ from datetime import datetime
 
 CURRENT_DATE = datetime.now().strftime("%d%m%y")
 
-CHAR_NAME = 'tibia - beff jezius'
+CHAR_NAME = 'tibia - beff jezus'
 
 COORDS = {
     'item_query': (999, 640),
     'x_button': (1071, 893),
     'send_item_area': (1009, 894),
+    'ask_last_offer': (1223,603),
+    'bid_last_offer': (1223,785)
 }
 
-ASSETS = ['rubini coins']
+ASSETS = ['rubini coins', 'gold token']
 
 MARKET_COORDS = {
     'ask': {
-        'AMOUNT_COORDS': [1223, 493, 1612 - 1555, 615 - 505],
-        'PRICE_COORDS': [1283, 493, 83, 615 - 505],
-        'DAY_COORDS': [1453, 493, 83, 615 - 505],
-        'HOUR_COORDS': [1533, 493, 67, 615 - 505],
+        'AMOUNT_COORDS': [1223, 490, 57, 113],
+        'PRICE_COORDS': [1283, 490, 80, 113],
+        'DAY_COORDS': [1453, 490, 83, 113],
+        'HOUR_COORDS': [1533, 490, 67, 113],
     },
     'bid': {
-        'AMOUNT_COORDS': [1223, 673, 1612 - 1555, 765 - 653],
-        'PRICE_COORDS': [1283, 675, 83, 765 - 653],
-        'DAY_COORDS': [1453, 675, 83, 765 - 653],
-        'HOUR_COORDS': [1533, 675, 67, 765 - 653],
+        'AMOUNT_COORDS': [1223, 672, 57, 113],
+        'PRICE_COORDS': [1283, 672, 80, 113],
+        'DAY_COORDS': [1453, 672, 83, 113],
+        'HOUR_COORDS': [1533, 672, 67, 113],
     }
 }

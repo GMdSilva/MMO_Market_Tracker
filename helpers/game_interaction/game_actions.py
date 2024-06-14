@@ -25,6 +25,12 @@ def click_item_name_clear_button():
     stealth_interface.stealth_left_click(cons.COORDS['x_button'][0], cons.COORDS['x_button'][1])
 
 
+def click_market_offers():
+    """ Resets text in the item name input box in the Tibia main Market window """
+    stealth_interface.stealth_left_click(cons.COORDS['ask_last_offer'][0], cons.COORDS['ask_last_offer'][1])
+    stealth_interface.stealth_left_click(cons.COORDS['bid_last_offer'][0], cons.COORDS['bid_last_offer'][1])
+
+
 def run_game_action_safely(fun: Callable) -> Callable:
     """ When orders are completed, a pop-up window appears, this function closes it before running a game function
 
