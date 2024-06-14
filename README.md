@@ -6,7 +6,7 @@
 
 This is a simple but powerful tool to track the movement of assets in games featuring a traditional market interface with bid and ask options using Optical Character Recognition (OCR).
 
-While most modern games have API that trivialize tracking this information, programmatic queries are largely missing in older games such as CipSoft's Tibia (which launched in 1997!), requiring less orthodox methods to obtain market information.
+While most modern games have APIs that trivialize tracking this information, programmatic queries are largely missing in older games such as CipSoft's Tibia (which launched in 1997!), requiring less orthodox methods to obtain market information.
 
 Currently, this tool only supports `Windows` platforms.
 
@@ -22,15 +22,15 @@ To get the prices for a particular item (in this example, *Rubini Coins*), we ta
 
 To interact with the market page in the game, we use `pywin32` PostMessage method to send key and mouse presses in **stealth** mode, that is, without hijacking the keyboard or mouse from the user. 
 
-The ability to take screenshots and input actions without affecting foreground tasks means this tool can be safely ran in the background and does not require a dedicated terminal - in contrast to similar market tracking with OCR methods on GitHub.
+The ability to take screenshots and input actions without affecting foreground tasks means this tool can be deployed in the background and does not require a dedicated terminal - in contrast to similar market tracking with OCR methods on GitHub.
 
 ### Result Analysis and Visualization
 
-From the OCR method with the [`main_collect.py`](MarketTracker/core/main_collect.py) method, we collect market data every few seconds, store it to a master `pandas` data frame, and run a variety of analysis through the [`main_analyze.py`](MarketTracker/core/main_analyze.py) method to calculate trade volume, average prices, and more. 
+From the OCR method with the [`main_collect.py`](MarketTracker/main_collect.py) method, we collect market data every few seconds, store it to a master `pandas` data frame, and run a variety of analyses through the [`main_analyze.py`](MarketTracker/main_analyze.py) method to calculate trade volume, average prices, and more. 
 
 The results are plotted with `plotly`, and saved to a `.html` page for ease of visualization:
 
-As Tibia's rudimentary market UI and lack of API access prevents us from detecting market movements directly, I developed a few routines to infer movements for ask or bid operations. 
+As Tibia's rudimentary market UI and lack of API access prevent us from detecting market movements directly, I developed a few routines to infer movements for ask or bid operations. 
 
 These include:
 - When an order is at the top of the orders list and disappears on the next scan, it's safe to assume that the offer was filled, thus, a trade is registered at that particular value and volume.
@@ -40,7 +40,7 @@ These include:
 
 However, these heuristics are not without faults. 
 
-Although rare, canceled orders at the top of the order list could be incorrectly called as fulfilled orders. 
+Although rare, canceled orders at the top of the order list could be incorrectly called fulfilled orders. 
 
 Further, the OCR is not perfect (although its accuracy is north of 99%), and sometimes order timestamps might be misread, leading to duplication of orders.
 
@@ -59,7 +59,7 @@ To use this tool in a BattleEye-equipped server, the [`game_interaction`](helper
 
 ### Usage in Other Games
 
-Since the [`vision.py`](helpers/vision.py) (OCR) and [`os_interface.py`](helpers/os_interface.py) classes are mostly independent, this tool can be extended to work on other games as well.
+Since the [`vision.py`](helpers/game_interaction/vision.py) (OCR) and [`os_interface.py`](helpers/game_interaction/os_interface.py) classes are mostly independent, this tool can be extended to work on other games as well.
 
 If you plan to use MMO Market Tracker for a Tibia server, be sure to edit the contents of the [`cons.py`](configs/cons.py) file to match the **window** coordinates of the buttons to be clicked. More information on how to set up the proper coordinates is described in the file's documentation.
 
